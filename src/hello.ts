@@ -4,12 +4,13 @@ import dotenv from "dotenv";
 dotenv.config();
  
 export const helloHandler = async (req: Request, res: Response) => {
+  console.log("Env controls:", process.env.POSTGRES);
   try {
     const client = new Client({
       connectionString: process.env.POSTGRES,
       ssl: false,
     });
- 
+    console.log("Attempting to connect to the database...");
     await client.connect();
     console.log("Connected to the database successfully");
     const result = await client.query("SELECT NOW()");
